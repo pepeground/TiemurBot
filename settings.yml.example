@@ -1,0 +1,4 @@
+---
+default_dupe_threshold: 15
+storage_folder:         '/tmp/tiemur/'
+telegram_token:         '1488:KUD-kudAh-kokoko'

@@ -14,7 +14,7 @@ FileUtils.mkdir_p(Settings.get.storage_folder)
 begin
   Telegram::Bot::Client.new(Settings.get.telegram_token).run do |bot|
     bot.listen do |message|
-      if message.photo.any? && message.chat.id == -240220704 # debug
+      if message.photo.any? # && message.chat.id == -240220704 # debug
         dp_finder = DuplicateFinder.new(message, Settings.get.telegram_token, storage_folder: Settings.get.storage_folder)
 
         if dp_finder.has_duplicate?

@@ -20,7 +20,7 @@ begin
         if dp_finder.has_duplicate?
           original_message = dp_finder.duplicate
 
-          response_message = MessageBuilder.new(original_message).build
+          response_message = MessageBuilder.new(original_message, message).build
 
           bot.api.send_message(chat_id: message.chat.id, text: response_message, reply_to_message_id: message.message_id)
 

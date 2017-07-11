@@ -8,7 +8,7 @@ class MessageBuilder
   end
 
   def build
-    "Ебать ты Темур!, It happened #{time_ago}, author: #{original_author}"
+    "Ебать ты Темур! It happened #{time_ago}, author: #{original_author}"
   end
 
   private

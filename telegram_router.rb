@@ -24,7 +24,7 @@ class TelegramRouter
 
   def text_response
     case message.text
-    when '/tiemur_stats'
+    when '/tiemur_stats', '/tiemur_stats@TiemurBot'
       if response = TelegramResponder::Stats.new(message).respond!
         BotLogger.info("Tiemur stats requested. #{message.from.username}, #{response}")
 

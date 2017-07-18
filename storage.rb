@@ -19,6 +19,7 @@ class Storage
   end
 
   def add_record(record, name: :fingerprints)
+    self[name] ||= []
     self[name] = self[name].push(record)
   end
 

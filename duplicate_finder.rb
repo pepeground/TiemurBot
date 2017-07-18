@@ -20,6 +20,7 @@ class DuplicateFinder
     return false unless fingerprint
 
     if duplicate
+      add_new_tiemur
       return true
     end
 
@@ -46,6 +47,18 @@ class DuplicateFinder
       message_from: message.from.username,
       fingerprint:  fingerprint
     }
+  end
+
+  def build_tiemur
+    {
+      message_id:   message.message_id,
+      message_date: message.date,
+      message_from: message.from.username
+    }
+  end
+
+  def add_new_tiemur
+    storage.add_record(build_tiemur, name: :tiemurs)
   end
 
   def add_new_record

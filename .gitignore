@@ -1,3 +1,4 @@
 *.pstore
 tiemur.log
 settings.yml
+nohup.out

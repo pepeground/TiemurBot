@@ -6,7 +6,6 @@ class TiemursFinder
   end
 
   def top(limit = 3)
-    binding.pry
     tiemurs.inject(Hash.new(0)) do |result_hash, tiemur|
       result_hash[tiemur[:message_from]] += 1
 

@@ -28,7 +28,11 @@ class MessageBuilder
     end
 
     def tiemur_author
-      tiemur_message.from.username
+      tiemur_message.from.username || tiemur_message.from.first_name
+    rescue
+      BotLogger.warn("Error while message_author_username: #{e.message}")
+
+      "N/A"
     end
 
     def time_ago

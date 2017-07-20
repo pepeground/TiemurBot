@@ -44,7 +44,7 @@ class DuplicateFinder
     {
       message_id:   message.message_id,
       message_date: message.date,
-      message_from: message.from.username,
+      message_from: message_author_username,
       fingerprint:  fingerprint
     }
   end
@@ -53,8 +53,16 @@ class DuplicateFinder
     {
       message_id:   message.message_id,
       message_date: message.date,
-      message_from: message.from.username
+      message_from: message_author_username
     }
+  end
+
+  def message_author_username
+    message.from.username || message.from.first_name
+  rescue
+    BotLogger.warn("Error while message_author_username: #{e.message}")
+
+    "N/A"
   end
 
   def add_new_tiemur

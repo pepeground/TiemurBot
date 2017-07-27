@@ -6,7 +6,7 @@ require 'phashion'
 class DuplicateFinder
   def initialize(message, telegram_token, storage_folder: '/tmp/tiemur/')
     @message = message
-    @file_id = message.photo.first.file_id
+    @file_id = message.photo.last.file_id
 
     @storage_folder = storage_folder
 
@@ -45,7 +45,8 @@ class DuplicateFinder
       message_id:   message.message_id,
       message_date: message.date,
       message_from: message_author_username,
-      fingerprint:  fingerprint
+      fingerprint:  fingerprint,
+      file_id:      file_id
     }
   end
 
@@ -53,7 +54,8 @@ class DuplicateFinder
     {
       message_id:   message.message_id,
       message_date: message.date,
-      message_from: message_author_username
+      message_from: message_author_username,
+      file_id:      file_id
     }
   end
 

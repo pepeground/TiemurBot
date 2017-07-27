@@ -12,6 +12,7 @@ require_relative 'telegram_router'
 
 require_relative 'message_builders/new_tiemur'
 require_relative 'message_builders/top_tiemurs'
+require_relative 'message_builders/database_size'
 
 # Prepare
 FileUtils.mkdir_p(Settings.get.storage_folder)

@@ -52,10 +52,12 @@ class DuplicateFinder
 
   def build_tiemur
     {
-      message_id:   message.message_id,
-      message_date: message.date,
-      message_from: message_author_username,
-      file_id:      file_id
+      original_message_id: duplicate[:message_id],
+      message_id:          message.message_id,
+      message_date:        message.date,
+      message_from:        message_author_username,
+      fingerprint:         fingerprint,
+      file_id:             file_id,
     }
   end
 

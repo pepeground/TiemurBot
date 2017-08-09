@@ -5,7 +5,7 @@ class TiemursFinder
     @chat_id = chat_id
   end
 
-  def top(limit = 3)
+  def top(limit = 5)
     tiemurs.inject(Hash.new(0)) do |result_hash, tiemur|
       result_hash[tiemur[:message_from]] += 1
 

@@ -1,5 +1,6 @@
 require_relative 'telegram_responders/photo'
 require_relative 'telegram_responders/stats'
+require_relative 'telegram_responders/proof'
 
 class TelegramRouter
   attr_reader :message
@@ -24,6 +25,12 @@ class TelegramRouter
 
   def text_response
     case message.text
+    when '/proof', '/proof@TiemurBot'
+      if response = TelegramResponder::Proof.new(message).respond!
+        BotLogger.info("Tiemur proofs requested. #{message.from.username}, #{response}")
+
+        return response
+      end
     when '/tiemur_stats', '/tiemur_stats@TiemurBot'
       if response = TelegramResponder::Stats.new(message).respond!
         BotLogger.info("Tiemur stats requested. #{message.from.username}, #{response}")

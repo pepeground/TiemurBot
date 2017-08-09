@@ -1,13 +1,9 @@
+require_relative 'base'
+
 class TelegramResponder
-  class Stats
-    attr_reader :message
-
-    def initialize(message)
-      @message = message
-    end
-
+  class Stats < Base
     def respond!
-      [
+      respond_with_text_and_reply [
         MessageBuilder::TopTiemurs.new(top_tiemurs).build,
         MessageBuilder::DatabaseSize.new(database_size).build
       ].join("\n")

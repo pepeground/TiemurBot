@@ -1,15 +1,11 @@
+require_relative 'base'
+
 class TelegramResponder
-  class Photo
-    attr_reader :message
-
-    def initialize(message)
-      @message = message
-    end
-
+  class Photo < Base
     def respond!
       return false unless dp_finder.has_duplicate?
 
-      MessageBuilder::NewTiemur.new(original_message, message).build
+      respond_with_text_and_reply MessageBuilder::NewTiemur.new(original_message, message).build
     end
 
     private

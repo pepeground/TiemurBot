@@ -17,6 +17,8 @@ require_relative 'message_builders/database_size'
 # Prepare
 FileUtils.mkdir_p(Settings.get.storage_folder)
 
+$0 = 'ruby_tiemur_bot'
+
 # Sometimes, telegram fails because fuck you, that's why!
 begin
   Telegram::Bot::Client.new(Settings.get.telegram_token).run do |bot|
@@ -24,16 +26,15 @@ begin
       # next unless message.chat.id == -240220704 # debug
 
       if response = TelegramRouter.new(message).respond!
-        bot.api.send_message(
-                              chat_id: message.chat.id,
-                              text:    response,
-                              reply_to_message_id: message.message_id
-                            )
+        bot.api.public_send(
+          response[:method],
+          response[:params].merge(chat_id: message.chat.id)
+        )
       end
     end
   end
 rescue => e
-  BotLogger.warn("Telegram error! #{e.message}")
+  BotLogger.warn("Telegram error! #{e.message}, #{e.backtrace}")
   sleep(5)
   retry
 end

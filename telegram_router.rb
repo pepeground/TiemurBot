@@ -1,6 +1,7 @@
 require_relative 'telegram_responders/photo'
 require_relative 'telegram_responders/stats'
 require_relative 'telegram_responders/proof'
+require_relative 'telegram_responders/set_invite_link'
 
 class TelegramRouter
   attr_reader :message
@@ -25,6 +26,12 @@ class TelegramRouter
 
   def text_response
     case message.text
+    when /\A\/set_invite_link/
+      if response = TelegramResponder::SetInviteLink.new(message).respond!
+        BotLogger.info("Invite link set. #{message.from.username}, #{response}")
+
+        return response
+      end
     when '/proof', '/proof@TiemurBot'
       if response = TelegramResponder::Proof.new(message).respond!
         BotLogger.info("Tiemur proofs requested. #{message.from.username}, #{response}")

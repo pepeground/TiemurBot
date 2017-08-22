@@ -11,13 +11,28 @@ class MessageBuilder
 
     def build
       if self_tiemured?
-        "Ебать ты сам себя затемурил! It happened #{time_ago}, author: #{original_author}"
+        "Ебать ты сам себя затемурил! It happened #{time_ago}, author: #{original_author} #{proof_link}"
       else
-        "Ебать ты Темур! It happened #{time_ago}, author: #{original_author}"
+        "Ебать ты Темур! It happened #{time_ago}, author: #{original_author} #{proof_link}"
       end
     end
 
     private
+
+    def storage
+      @storage ||= Storage.instance(tiemur_message.chat.id)
+    end
+
+    def proof_link
+      if storage[:invite_link]
+        invite_link = storage[:invite_link]
+        message_id  = message_hash[:message_id]
+
+        return ", Proof: #{invite_link}/#{message_id}"
+      end
+
+      ""
+    end
 
     def self_tiemured?
       original_author == tiemur_author

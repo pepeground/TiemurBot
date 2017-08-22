@@ -3,6 +3,7 @@ require_relative 'base'
 class TelegramResponder
   class Photo < Base
     def respond!
+      return false if message.edit_date != nil # skip edited messages
       return false unless dp_finder.has_duplicate?
 
       respond_with_text_and_reply MessageBuilder::NewTiemur.new(original_message, message).build

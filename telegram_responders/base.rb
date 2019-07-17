@@ -16,8 +16,9 @@ class TelegramResponder
       {
         method: :send_message,
         params: {
-          text:                response_message,
-          reply_to_message_id: message.message_id
+          text:                     response_message,
+          reply_to_message_id:      message.message_id,
+          disable_web_page_preview: true
         }
       }
     end

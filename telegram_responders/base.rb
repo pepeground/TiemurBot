@@ -1,9 +1,10 @@
 class TelegramResponder
   class Base
-    attr_reader :message
+    attr_reader :message, :client
 
-    def initialize(message)
+    def initialize(message, client: nil)
       @message = message
+      @client = client
     end
 
     def respond!

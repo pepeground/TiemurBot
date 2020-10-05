@@ -4,10 +4,11 @@ require_relative 'telegram_responders/proof'
 require_relative 'telegram_responders/set_invite_link'
 
 class TelegramRouter
-  attr_reader :message
+  attr_reader :message, :client
 
-  def initialize(message)
+  def initialize(message, client)
     @message = message
+    @client = client
   end
 
   def respond!
@@ -27,7 +28,7 @@ class TelegramRouter
   def text_response
     case message.text
     when /\A\/set_invite_link/
-      if response = TelegramResponder::SetInviteLink.new(message).respond!
+      if response = TelegramResponder::SetInviteLink.new(message, client: client).respond!
         BotLogger.info("Invite link set. #{message.from.username}, #{response}")
 
         return response

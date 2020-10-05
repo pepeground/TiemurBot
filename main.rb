@@ -25,7 +25,7 @@ begin
     bot.listen do |message|
       # next unless message.chat.id == -240220704 # debug
 
-      if response = TelegramRouter.new(message).respond!
+      if response = TelegramRouter.new(message, bot).respond!
         bot.api.public_send(
           response[:method],
           response[:params].merge(chat_id: message.chat.id)

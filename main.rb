@@ -23,8 +23,6 @@ $0 = 'ruby_tiemur_bot'
 begin
   Telegram::Bot::Client.new(Settings.get.telegram_token).run do |bot|
     bot.listen do |message|
-      # next unless message.chat.id == -240220704 # debug
-
       if response = TelegramRouter.new(message, bot).respond!
         bot.api.public_send(
           response[:method],

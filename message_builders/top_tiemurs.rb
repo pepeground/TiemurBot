@@ -1,13 +1,14 @@
 class MessageBuilder
   class TopTiemurs
-    attr_reader :top_tiemurs
+    attr_reader :top_tiemurs, :title
 
-    def initialize(top_tiemurs)
+    def initialize(top_tiemurs, title = "Топ Темуров:")
       @top_tiemurs = top_tiemurs
+      @title = title
     end
 
     def build
-      top_tiemurs.inject("Топ Темуров:") do |msg, (tiemur_name, count)|
+      top_tiemurs.inject(title) do |msg, (tiemur_name, count)|
         "#{msg} \n #{tiemur_name} => #{count}"
       end
     end

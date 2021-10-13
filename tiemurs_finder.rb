@@ -17,8 +17,11 @@ class TiemursFinder
     all_tiemurs.map do |name, duplicates_count|
       uniq_images_count = all_posters[name]
 
+      return [name, 1488] if uniq_images_count.to_i <= 0 && duplicates_count > 0
+
       next if uniq_images_count.to_i <= 0
-      percent = (duplicates_count / uniq_images_count * 100).round(2)
+
+      percent = (duplicates_count.to_f / uniq_images_count.to_f * 100).round(2)
 
       [name, percent]
     end.compact.to_h.sort_by { |_, v| v }.reverse.first(limit).to_h

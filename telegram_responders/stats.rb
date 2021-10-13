@@ -6,6 +6,7 @@ class TelegramResponder
       respond_with_text_and_reply [
         MessageBuilder::TopTiemurs.new(top_tiemurs).build,
         MessageBuilder::TopTiemurs.new(top_posters, "Топ постеров:").build,
+        MessageBuilder::TopTiemurs.new(top_posters, "Коэффициент темуринга, %:").build,
         MessageBuilder::DatabaseSize.new(database_size).build
       ].join("\n")
     end

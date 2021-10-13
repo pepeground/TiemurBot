@@ -6,22 +6,41 @@ class TiemursFinder
   end
 
   def top(limit = 5)
-    tiemurs.inject(Hash.new(0)) do |result_hash, tiemur|
-      result_hash[tiemur[:message_from]] += 1
-
-      result_hash
-    end.sort_by { |_, v| v }.reverse.first(limit).to_h
+    all_tiemurs.sort_by { |_, v| v }.reverse.first(limit).to_h
   end
 
   def top_posters(limit = 5)
-    fingerprints.inject(Hash.new(0)) do |result_hash, tiemur|
-      result_hash[tiemur[:message_from]] += 1
+    all_posters.sort_by { |_, v| v }.reverse.first(limit).to_h
+  end
 
-      result_hash
-    end.sort_by { |_, v| v }.reverse.first(limit).to_h
+  def relative_top(limit = 5)
+    all_tiemurs.map do |name, duplicates_count|
+      uniq_images_count = all_posters[name]
+
+      next if uniq_images_count.to_i <= 0
+      percent = (duplicates_count / uniq_images_count * 100).round(2)
+
+      [name, percent]
+    end.compact.to_h.sort_by { |_, v| v }.reverse.first(limit).to_h
   end
 
   private
+
+  def all_posters
+    @all_posters ||= fingerprints.inject(Hash.new(0)) do |result_hash, tiemur|
+      result_hash[tiemur[:message_from]] += 1
+
+      result_hash
+    end
+  end
+
+  def all_tiemurs
+    @all_tiemurs ||= tiemurs.inject(Hash.new(0)) do |result_hash, tiemur|
+      result_hash[tiemur[:message_from]] += 1
+
+      result_hash
+    end
+  end
 
   def tiemurs
     storage[:tiemurs] || []

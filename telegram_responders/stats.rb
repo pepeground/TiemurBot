@@ -5,8 +5,11 @@ class TelegramResponder
     def respond!
       respond_with_text_and_reply [
         MessageBuilder::TopTiemurs.new(top_tiemurs).build,
+        "\n",
         MessageBuilder::TopTiemurs.new(top_posters, "Топ постеров:").build,
-        MessageBuilder::TopTiemurs.new(top_posters, "Коэффициент темуринга, %:").build,
+        "\n",
+        MessageBuilder::TopTiemurs.new(relative_top, "Коэффициент темуринга, %:").build,
+        "\n",
         MessageBuilder::DatabaseSize.new(database_size).build
       ].join("\n")
     end
@@ -27,6 +30,10 @@ class TelegramResponder
 
     def top_posters
       @top_posters ||= tiemurs_finder.top_posters
+    end
+
+    def relative_top
+      @relative_top ||= tiemurs_finder.relative_top
     end
 
     def tiemurs_finder
